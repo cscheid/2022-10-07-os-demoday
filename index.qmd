@@ -2,6 +2,13 @@
 title: "OS Demo Day"
 ---
 
+Follow this at
+
+- website: <https://carlos-scheidegger.quarto.pub/2022-10-07-os-demoday/>, 
+- repo source: <https://github.com/cscheid/2022-10-07-os-demoday>.
+
+## what
+
 - [talk](talk.qmd)
 - [callout example](callout-ast-example.qmd)
 - [lower](lower.qmd)

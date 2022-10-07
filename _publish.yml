@@ -1,0 +1,4 @@
+- source: project
+  quarto-pub:
+    - id: 61a662cc-0573-4616-a378-1db60252b0d2
+      url: 'https://quartopub.com/sites/carlos-scheidegger/2022-10-07-os-demoday'
