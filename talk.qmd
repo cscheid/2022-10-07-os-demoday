@@ -41,16 +41,10 @@ They are great if you want to process simple Pandoc objects.
 
 - Code cells
 
-  - code cell outputs
+- Code cell outputs
 
-    - which can be figures
+  - which can be figures, ...subfigures! ... different layouts!
 
-      ::: {.fragment}
-
-      - subfigures!
-        - ... with different layouts!
-
-      :::
 
 
 ## Specifics: How do we represent a callout?
@@ -92,6 +86,10 @@ Pandoc's [custom output formats](https://pandoc.org/custom-writers.html) are not
 
 - Other nodes are treated the same as filters, by walking the AST, incorporating custom nodes.
 
+## {}
+
+[(generated output for the callout example)](callout-ast-example.txt)
+
 ```lua
 function Pandoc(doc, emit)
     emit("<doc>")
@@ -99,7 +97,16 @@ function Pandoc(doc, emit)
     emit("</doc>")
 end
 
-function MyCustomNode(node)
-    return "<custom-node/>"
+function Callout(callout, emit)
+    emit("<callout>")
+    if callout.caption then
+        emit("<title>")
+        emit(callout.caption)
+        emit("</title>")
+    end
+    emit("<content>")
+    emit(callout.div)
+    emit("</content>")
+    emit("</callout>")
 end
 ```

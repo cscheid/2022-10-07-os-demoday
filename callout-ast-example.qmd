@@ -1,7 +1,12 @@
 ---
 title: Minimal AST Filter Example
+format:
+  html: default
+  customwriter.lua: default
 filters:
   - callout.lua
+  
+validate-yaml: false # this is a workaround for a current quarto bug
 ---
 
 ::: callout-tip
