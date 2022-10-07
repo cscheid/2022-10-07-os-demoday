@@ -1,4 +1,4 @@
 publish:
-  quarto publish
-  git push origin main
+	quarto publish
+	git push origin main
   
