@@ -1,0 +1,90 @@
+---
+format: revealjs
+title: Lua Filters in quarto 1.3
+author: Carlos Scheidegger
+---
+
+## Extensibility today
+
+Pandoc filters [example](lower.html):
+
+```lua
+-- ee cummings filter
+Para = function(para)
+  for i,v in ipairs(para.content) do
+    if v.t == "Str" then
+      para.content[i] = pandoc.Str(
+        pandoc.utils.stringify(v):lower())
+    end
+  end
+  return para
+end
+```
+
+. . .
+
+They are great if you want to process simple Pandoc objects.
+
+
+## But quarto has complex objects
+
+- Tables
+
+- Figures
+
+  - and subfigures!
+
+    - ... with different layouts!
+
+- Citations
+
+- Listings
+
+- Code cells
+
+  - code cell outputs
+
+    - which can be figures
+
+      ::: {.fragment}
+
+      - subfigures!
+        - ... with different layouts!
+
+      :::
+
+
+## Specifics: How do we represent a callout?
+
+- It's a pandoc div with elements laid out in a careful order
+
+- This is pretty brittle to construct and deconstruct and extend
+
+- Especially, other filters need to know if they're going to unintentionally process a callout (or theorem, or table, or citation, or figure, or code cell, ...)
+
+
+## In quarto 1.3
+
+- These specific objects will become first-class citizens in the AST.
+
+- We reimplement the filter infrastructure in Lua
+
+. . .
+
+```lua
+Callout = function(callout)
+  if callout.caption == nil then
+    callout.caption = pandoc.Inlines({"A default callout title"})
+  end
+end
+```
+
+- [example](callout-ast-example.html)
+
+## Bonus
+
+- Custom output formats in Pandoc are much less ergonomic than filters.
+
+. . .
+
+- ... so format outputs in quarto 1.3 will look much more like filters 
